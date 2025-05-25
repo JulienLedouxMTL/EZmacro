@@ -23,11 +23,15 @@ def calcul(event=None):
 
     if mesurei == "":
         mesurei = "0"
-    if not re.match(r'^\d+(\.\d+)?$', mesurei):
+
+    # Vérification de la validité de l'entrée (accepte les chiffres, decimales anglais et francais)
+    if not re.match(r'^-?\d*[,.]?\d*$', mesurei) or mesurei in ["-", ".", ","]:
         messagebox.showerror("Erreur", "Veuillez entrer une valeur numérique valide.")
         mesure_initiale.delete(0, tk.END)
         is_updating = False
         return
+    
+    mesurei = mesurei.replace(",", ".")
     mesurei = float(mesurei)
 
     unite = variable_menu.get()
@@ -54,11 +58,14 @@ def calcul_inverse(event=None):
 
     if result == "":
         result = "0"
-    if not re.match(r'^\d+(\.\d+)?$', result):
+
+    if not re.match(r'^-?\d*[,.]?\d*$', result) or result in ["-", ".", ","]:
         messagebox.showerror("Erreur", "Veuillez entrer une valeur numérique valide.")
-        result.delete(0, tk.END)
+        resultat.delete(0, tk.END)
         is_updating = False
         return
+    
+    result = result.replace(",", ".")
     result = float(result)
 
     unite = variable_menu.get()
